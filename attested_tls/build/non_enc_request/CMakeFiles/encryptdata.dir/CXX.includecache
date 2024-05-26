@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/azureuser/testSample/attested_tls/non_enc_request/encryptdata.cpp
+stdio.h
+-
+unistd.h
+-
+string.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+openssl/ssl.h
+-
+openssl/err.h
+-
+vector
+-
+string
+-
+iostream
+-
+fstream
+-
+openssl/evp.h
+-
+openssl/rsa.h
+-
+openssl/pem.h
+-
+openssl/bio.h
+-
+openssl/rand.h
+-
+openssl/aes.h
+-
+
