@@ -12,6 +12,7 @@
 #include <openenclave/corelibc/stdlib.h>
 #include <stdio.h>
 #include <openenclave/seal.h>
+#include "tls_server_t.h"
 
 static char *key1 = NULL;
 static char *key2 = NULL;
@@ -44,18 +45,18 @@ extern "C"
 
     void free_tls();
 
-    void enclave_helloworld();
+    void enclave_getPublicKey();
 };
 
-void enclave_helloworld()
+void enclave_getPublicKey()
 {
     // Call back into the host
-    oe_result_t result = host_helloworld(publicString);
+    oe_result_t result = host_getPublicKey(publicString);
     if (result != OE_OK)
     {
         fprintf(
             stderr,
-            "Call to host_helloworld failed: result=%u (%s)\n",
+            "Call to host_getPublicKey failed: result=%u (%s)\n",
             result,
             oe_result_str(result));
     }
@@ -292,7 +293,6 @@ int set_up_tls_server(char *server_port, char *uuid_str)
 
         server_port_number = atoi(server_port);
 
-        printf("\n_uuid_sgx_ecdsa: ");
         for (int i = 0; i < 16; i++)
         {
             ptr += sprintf(ptr, "%02x", _uuid_sgx_ecdsa.b[i]);
@@ -350,29 +350,15 @@ void generate_keypair(uint8_t **out_sealed_blob, size_t *out_sealed_size)
     size_t sealed_size = 0;
     oe_result_t result = OE_FAILURE;
 
-    // der_data = generate_and_return_key_pair(der_length);
     keypair = generate_and_return_key_pair();
 
     privateHex = generateHexString(keypair.private_key, keypair.private_key_length);
     publicHex = generateHexString(keypair.public_key, keypair.public_key_length);
     publicString = (char *)keypair.public_key;
-
-    // Convert the BIGNUM back to a decimal string for printing
-    // bnStr = BN_bn2dec(bnKey);
     
     BN_hex2bn(&bnKey, privateHex);
-
-    print_bignum(bnKey);
-    
-    // Random Big Number
     bnRand = generate_random_bignum(512);
-
-    // print_bignum(bnRand);
-
     points = get_polynomial_points(bnRand, bnKey);
-
-    // printf("Polynomial Points: %s\n", points);
-
     shares = get_shares(points);
 
     key1 = shares[0];
@@ -405,12 +391,6 @@ void generate_keypair(uint8_t **out_sealed_blob, size_t *out_sealed_size)
     *out_sealed_blob = sealed_blob;
     *out_sealed_size = sealed_size;
 
-    // print shares
-    // for (int i = 0; i < 2; i++)
-    // {
-    //     printf("Part %d: %s\n", i + 1, shares[i]);
-    // }
-
     if (privateHex)
         free((void *)privateHex);
     if (bnKey)
@@ -421,15 +401,6 @@ void generate_keypair(uint8_t **out_sealed_blob, size_t *out_sealed_size)
         BN_free(bnRand);
     if (points)
         free(points);
-    // if (shares)
-    //     for (int i = 0; i < 2; i++)
-    //     {
-    //         if (shares[i] != nullptr)
-    //         {
-    //             free(shares[i]);
-    //         }
-    //     }
-    //     free(shares);
 }
 
 void unseal_data(uint8_t *sealed_blob, size_t sealed_size)

@@ -1,5 +1,5 @@
-const DataEscrow = artifacts.require("DataEscrow");
+const Migrations = artifacts.require("DataEscrow");
 
 module.exports = function(deployer) {
-  deployer.deploy(DataEscrow);
+  deployer.deploy(Migrations);
 };

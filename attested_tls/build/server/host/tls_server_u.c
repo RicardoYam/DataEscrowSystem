@@ -15,7 +15,7 @@ enum
     tls_server_fcn_id_unseal_data = 2,
     tls_server_fcn_id_free_tls = 3,
     tls_server_fcn_id_handle_communication_until_done = 4,
-    tls_server_fcn_id_enclave_helloworld = 5,
+    tls_server_fcn_id_enclave_getPublicKey = 5,
     tls_server_fcn_id_oe_get_sgx_report_ecall = 6,
     tls_server_fcn_id_oe_get_report_v2_ecall = 7,
     tls_server_fcn_id_oe_verify_local_report_ecall = 8,
@@ -32,7 +32,7 @@ static const oe_ecall_info_t _tls_server_ecall_info_table[] =
     { "unseal_data" },
     { "free_tls" },
     { "handle_communication_until_done" },
-    { "enclave_helloworld" },
+    { "enclave_getPublicKey" },
     { "oe_get_sgx_report_ecall" },
     { "oe_get_report_v2_ecall" },
     { "oe_verify_local_report_ecall" },
@@ -87,12 +87,12 @@ typedef struct _handle_communication_until_done_args_t
     char* additional_input;
 } handle_communication_until_done_args_t;
 
-typedef struct _enclave_helloworld_args_t
+typedef struct _enclave_getPublicKey_args_t
 {
     oe_result_t oe_result;
     uint8_t* deepcopy_out_buffer;
     size_t deepcopy_out_buffer_size;
-} enclave_helloworld_args_t;
+} enclave_getPublicKey_args_t;
 
 typedef struct _oe_get_sgx_report_ecall_args_t
 {
@@ -638,14 +638,14 @@ done:
 
 OE_WEAK_ALIAS(tls_server_handle_communication_until_done, handle_communication_until_done);
 
-oe_result_t tls_server_enclave_helloworld(oe_enclave_t* enclave)
+oe_result_t tls_server_enclave_getPublicKey(oe_enclave_t* enclave)
 {
     oe_result_t _result = OE_FAILURE;
 
     static uint64_t global_id = OE_GLOBAL_ECALL_ID_NULL;
 
     /* Marshalling struct. */
-    enclave_helloworld_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
+    enclave_getPublicKey_args_t _args, *_pargs_in = NULL, *_pargs_out = NULL;
     /* Marshalling buffer and sizes. */
     size_t _input_buffer_size = 0;
     size_t _output_buffer_size = 0;
@@ -661,11 +661,11 @@ oe_result_t tls_server_enclave_helloworld(oe_enclave_t* enclave)
     memset(&_args, 0, sizeof(_args));
 
     /* Compute input buffer size. Include in and in-out parameters. */
-    OE_ADD_SIZE(_input_buffer_size, sizeof(enclave_helloworld_args_t));
+    OE_ADD_SIZE(_input_buffer_size, sizeof(enclave_getPublicKey_args_t));
     /* There were no corresponding parameters. */
     
     /* Compute output buffer size. Include out and in-out parameters. */
-    OE_ADD_SIZE(_output_buffer_size, sizeof(enclave_helloworld_args_t));
+    OE_ADD_SIZE(_output_buffer_size, sizeof(enclave_getPublicKey_args_t));
     /* There were no corresponding parameters. */
     
     /* Allocate marshalling buffer. */
@@ -681,7 +681,7 @@ oe_result_t tls_server_enclave_helloworld(oe_enclave_t* enclave)
     }
     
     /* Serialize buffer inputs (in and in-out parameters). */
-    _pargs_in = (enclave_helloworld_args_t*)_input_buffer;
+    _pargs_in = (enclave_getPublicKey_args_t*)_input_buffer;
     OE_ADD_SIZE(_input_buffer_offset, sizeof(*_pargs_in));
     /* There were no in nor in-out parameters. */
     
@@ -692,7 +692,7 @@ oe_result_t tls_server_enclave_helloworld(oe_enclave_t* enclave)
     if ((_result = oe_call_enclave_function(
              enclave,
              &global_id,
-             _tls_server_ecall_info_table[tls_server_fcn_id_enclave_helloworld].name,
+             _tls_server_ecall_info_table[tls_server_fcn_id_enclave_getPublicKey].name,
              _input_buffer,
              _input_buffer_size,
              _output_buffer,
@@ -708,7 +708,7 @@ oe_result_t tls_server_enclave_helloworld(oe_enclave_t* enclave)
     }
 
     /* Setup output arg struct pointer. */
-    _pargs_out = (enclave_helloworld_args_t*)_output_buffer;
+    _pargs_out = (enclave_getPublicKey_args_t*)_output_buffer;
     OE_ADD_SIZE(_output_buffer_offset, sizeof(*_pargs_out));
 
     /* Check if the call succeeded. */
@@ -729,7 +729,7 @@ done:
     return _result;
 }
 
-OE_WEAK_ALIAS(tls_server_enclave_helloworld, enclave_helloworld);
+OE_WEAK_ALIAS(tls_server_enclave_getPublicKey, enclave_getPublicKey);
 
 oe_result_t tls_server_oe_get_sgx_report_ecall(
     oe_enclave_t* enclave,
@@ -1260,7 +1260,7 @@ OE_WEAK_ALIAS(tls_server_oe_sgx_switchless_enclave_worker_thread_ecall, oe_sgx_s
 /**** Untrusted function IDs. ****/
 enum
 {
-    tls_server_fcn_id_host_helloworld = 0,
+    tls_server_fcn_id_host_getPublicKey = 0,
     tls_server_fcn_id_oe_syscall_epoll_create1_ocall = 1,
     tls_server_fcn_id_oe_syscall_epoll_wait_ocall = 2,
     tls_server_fcn_id_oe_syscall_epoll_wake_ocall = 3,
@@ -1352,14 +1352,14 @@ enum
 };
 
 /**** OCALL marshalling structs. ****/
-typedef struct _host_helloworld_args_t
+typedef struct _host_getPublicKey_args_t
 {
     oe_result_t oe_result;
     uint8_t* deepcopy_out_buffer;
     size_t deepcopy_out_buffer_size;
     char* msg;
     size_t msg_len;
-} host_helloworld_args_t;
+} host_getPublicKey_args_t;
 
 typedef struct _oe_syscall_epoll_create1_ocall_args_t
 {
@@ -2463,7 +2463,7 @@ typedef struct _oe_verify_tdx_quote_ocall_args_t
 
 /**** OCALL functions. ****/
 
-static void ocall_host_helloworld(
+static void ocall_host_getPublicKey(
     uint8_t* input_buffer,
     size_t input_buffer_size,
     uint8_t* output_buffer,
@@ -2474,8 +2474,8 @@ static void ocall_host_helloworld(
     OE_UNUSED(input_buffer_size);
 
     /* Prepare parameters. */
-    host_helloworld_args_t* _pargs_in = (host_helloworld_args_t*)input_buffer;
-    host_helloworld_args_t* _pargs_out = (host_helloworld_args_t*)output_buffer;
+    host_getPublicKey_args_t* _pargs_in = (host_getPublicKey_args_t*)input_buffer;
+    host_getPublicKey_args_t* _pargs_out = (host_getPublicKey_args_t*)output_buffer;
 
     size_t _input_buffer_offset = 0;
     size_t _output_buffer_offset = 0;
@@ -2500,7 +2500,7 @@ static void ocall_host_helloworld(
     /* There were no out nor in-out parameters. */
 
     /* Call user function. */
-    host_helloworld(
+    host_getPublicKey(
         _pargs_in->msg);
 
     /* There is no deep-copyable out parameter. */
@@ -7887,7 +7887,7 @@ done:
 /**** OCALL function table. ****/
 
 static oe_ocall_func_t _tls_server_ocall_function_table[] = {
-    (oe_ocall_func_t) ocall_host_helloworld,
+    (oe_ocall_func_t) ocall_host_getPublicKey,
     (oe_ocall_func_t) ocall_oe_syscall_epoll_create1_ocall,
     (oe_ocall_func_t) ocall_oe_syscall_epoll_wait_ocall,
     (oe_ocall_func_t) ocall_oe_syscall_epoll_wake_ocall,

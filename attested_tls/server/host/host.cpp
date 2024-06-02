@@ -3,10 +3,11 @@
 #include "tls_server_u.h"
 #include "crow.h"
 #include "crow/middlewares/cors.h"
+#include <unistd.h>
 
 static char *publicHex = NULL;
 
-void host_helloworld(char *msg)
+void host_getPublicKey(char *msg)
 {
     if (publicHex != NULL)
     {
@@ -93,62 +94,18 @@ read_port:
 
     printf("Host: Creating an tls client enclave\n");
 
-    // enclave = create_enclave(argv[1]);
-    // if (enclave == NULL)
-    // {
-    //     // goto exit;
-    //     return crow::response(400, "Enclave can't be created");
-    // }
-
-    // generate_keypair(enclave, &sealed_blob, &sealed_size);
-    // unseal_data(enclave, sealed_blob, sealed_size);
-    // ret = set_up_tls_server(enclave, &ret, server_port, keep_server_up);
-
-    // Receive request
-    // crow::App<crow::CORSHandler> app;
-
-    // auto &cors = app.get_middleware<crow::CORSHandler>();
-
-    // cors.global()
-    //     .origin("*")
-    //     .headers("Content-Type, Accept")
-    //     .methods("POST"_method, "GET"_method);
-
-    // CROW_ROUTE(app, "/data").methods("POST"_method)([&](const crow::request &req)
-    //                                                 {
-    //     auto x = crow::json::load(req.body);
-    //     if (!x) return crow::response(400, "Invalid JSON");
-
-    //     std::string dataId;
-    //     if (x.has("dataId")) {
-    //         dataId = x["dataId"].s();
-    //         printf("data id: %s\n", dataId.c_str());
-
-    //     } else {
-    //         return crow::response(400, "Missing dataId");
-    //     }
-
-    //     crow::json::wvalue response;
-    //     response["message"] = "Data ID received: " + dataId;
-    //     return crow::response{200, response}; });
-
-    // app.bindaddr("127.0.0.1").port(8080).run();
-
-    // if (ret != 0)
-    // {
-    //     printf("Host: setup_tls_server failed\n");
-    //     return crow::response(400, "Enclave error");
-    // }
-
-    printf("Host: Creating an tls client enclave\n");
-
     enclave = create_enclave(argv[1]);
     if (enclave == NULL)
     {
-        // goto exit;
         return 1;
     }
 
+    // while (1) {
+    //     generate_keypair(enclave, &sealed_blob, &sealed_size);
+    //     unseal_data(enclave, sealed_blob, sealed_size); 
+    //     sleep(1);
+    // }
+    
     printf("Host: set TLS preperation\n");
     ret = set_up_tls_server(enclave, &ret, server_port, uuid_str);
     printf("\noutside_uuid_sgx_ecdsa: %s\n", uuid_str);
@@ -177,7 +134,7 @@ read_port:
 
             generate_keypair(enclave, &sealed_blob, &sealed_size);
 
-            enclave_helloworld(enclave);
+            enclave_getPublicKey(enclave);
 
             ret = handle_communication_until_done(enclave, &ret, false, NULL);
 
@@ -224,8 +181,6 @@ read_port:
         return crow::response{200, response}; });
 
     app.bindaddr("127.0.0.1").port(8080).run();
-
-    // unseal_data(enclave, sealed_blob, sealed_size);
 
     free_tls(enclave);
 

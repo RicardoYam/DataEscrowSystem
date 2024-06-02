@@ -31,7 +31,7 @@ int handle_communication_until_done(
     bool keep_server_up,
     char* additional_input);
 
-void enclave_helloworld(void);
+void enclave_getPublicKey(void);
 
 oe_result_t oe_get_sgx_report_ecall(
     const void* opt_params,
@@ -56,7 +56,7 @@ oe_result_t oe_sgx_init_context_switchless_ecall(
 void oe_sgx_switchless_enclave_worker_thread_ecall(oe_enclave_worker_context_t* context);
 
 /**** OCALL prototypes. ****/
-oe_result_t host_helloworld(char* msg);
+oe_result_t host_getPublicKey(char* msg);
 
 oe_result_t oe_syscall_epoll_create1_ocall(
     oe_host_fd_t* _retval,

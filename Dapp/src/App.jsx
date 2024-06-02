@@ -283,7 +283,7 @@ function App() {
             "type": "function"
           }
         ];
-        const contractAddress = '0xDD47902892d4cF336B69FC1f1A3Bdebee1150d5A';
+        const contractAddress = '0xfe77Aa9Dc4EE346Fb4aC98d28050DCD7D95E3082';
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         setContract(contract);
 

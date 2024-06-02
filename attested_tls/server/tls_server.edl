@@ -1,6 +1,3 @@
-// Copyright (c) Open Enclave SDK contributors.
-// Licensed under the MIT License.
-
 enclave {
     from "openenclave/edl/syscall.edl" import *;
     from "platform.edl" import *;
@@ -21,10 +18,10 @@ enclave {
 
         public int handle_communication_until_done(bool keep_server_up, char* additional_input);
 
-        public void enclave_helloworld();
+        public void enclave_getPublicKey();
     };
 
     untrusted {
-        void host_helloworld([in, string] char* msg);
+        void host_getPublicKey([in, string] char* msg);
     };
 };
