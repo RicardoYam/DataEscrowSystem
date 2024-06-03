@@ -9086,10 +9086,16 @@
       "links": {},
       "address": "0xfe77Aa9Dc4EE346Fb4aC98d28050DCD7D95E3082",
       "transactionHash": "0x2b30dc768ae77a8ee503e84b069eedb9a441f81bb0241b10f8c6b908c26355b4"
+    },
+    "1717364332030": {
+      "events": {},
+      "links": {},
+      "address": "0x1B400CA10982a1Dc0C0Ae28A8B0F1a1a4618D516",
+      "transactionHash": "0xc14595b311d2bd80bcdc9140d4c5c03fd1877f5c0845afd84cf75559d602159e"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-06-02T15:07:06.477Z",
+  "updatedAt": "2024-06-02T21:38:57.905Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

@@ -40,7 +40,17 @@ stdio.h
 ../../common/tls_server_enc_pubkey.h
 /home/azureuser/testSample/attested_tls/common/tls_server_enc_pubkey.h
 
+/home/azureuser/testSample/attested_tls/client/enc/ecalls.cpp
+openenclave/enclave.h
+-
+../../common/tls_client_enc_pubkey.h
+/home/azureuser/testSample/attested_tls/common/tls_client_enc_pubkey.h
+tls_client_t.h
+/home/azureuser/testSample/attested_tls/client/enc/tls_client_t.h
+
 /home/azureuser/testSample/attested_tls/common/common.h
+
+/home/azureuser/testSample/attested_tls/common/tls_client_enc_pubkey.h
 
 /home/azureuser/testSample/attested_tls/common/tls_server_enc_mrenclave.h
 
@@ -748,6 +758,12 @@ openenclave/bits/result.h
 
 /opt/openenclave/include/openenclave/bits/defs.h
 
+/opt/openenclave/include/openenclave/bits/edl/syscall_types.h
+openenclave/bits/defs.h
+-
+openenclave/bits/types.h
+-
+
 /opt/openenclave/include/openenclave/bits/evidence.h
 defs.h
 /opt/openenclave/include/openenclave/bits/defs.h
@@ -812,7 +828,25 @@ types.h
 sgx/writebarrier.h
 /opt/openenclave/include/openenclave/bits/sgx/writebarrier.h
 
+/opt/openenclave/include/openenclave/bits/sgx/epid.h
+openenclave/bits/defs.h
+-
+openenclave/bits/types.h
+-
+
 /opt/openenclave/include/openenclave/bits/sgx/sgxproperties.h
+
+/opt/openenclave/include/openenclave/bits/sgx/sgxtypes.h
+openenclave/bits/defs.h
+-
+openenclave/bits/properties.h
+-
+openenclave/bits/result.h
+-
+openenclave/bits/sgx/epid.h
+-
+openenclave/bits/types.h
+-
 
 /opt/openenclave/include/openenclave/bits/sgx/writebarrier.h
 openenclave/bits/defs.h
@@ -825,6 +859,10 @@ openenclave/bits/types.h
 /opt/openenclave/include/openenclave/bits/types.h
 defs.h
 /opt/openenclave/include/openenclave/bits/defs.h
+
+/opt/openenclave/include/openenclave/corelibc/bits/types.h
+openenclave/bits/types.h
+-
 
 /opt/openenclave/include/openenclave/enclave.h
 openenclave/bits/asym_keys.h
@@ -847,4 +885,28 @@ bits/security.h
 /opt/openenclave/include/openenclave/bits/security.h
 bits/types.h
 /opt/openenclave/include/openenclave/bits/types.h
+
+/opt/openenclave/include/openenclave/log.h
+bits/defs.h
+/opt/openenclave/include/openenclave/bits/defs.h
+
+client/enc/tls_client_args.h
+openenclave/bits/result.h
+-
+openenclave/bits/edl/syscall_types.h
+client/enc/openenclave/bits/edl/syscall_types.h
+openenclave/corelibc/bits/types.h
+client/enc/openenclave/corelibc/bits/types.h
+openenclave/bits/types.h
+client/enc/openenclave/bits/types.h
+openenclave/bits/sgx/sgxtypes.h
+client/enc/openenclave/bits/sgx/sgxtypes.h
+openenclave/log.h
+client/enc/openenclave/log.h
+
+client/enc/tls_client_t.h
+openenclave/enclave.h
+-
+tls_client_args.h
+client/enc/tls_client_args.h
 

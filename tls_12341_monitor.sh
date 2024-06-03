@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # 创建并初始化记录文件
-output_file="tls_12341_monitor.log"
+output_file="tls_12341_openssl1.log"
 echo "Timestamp,Local_Address,Remote_Address,State" > $output_file
 
 # 定义捕获数据包的文件
-pcap_file="tls_12341_traffic.pcap"
+pcap_file="tls_12341_traffic_openssl1.pcap"
 
 # 启动 tcpdump 以捕获端口12341上的流量
 sudo tcpdump -i any port 12341 -w $pcap_file &

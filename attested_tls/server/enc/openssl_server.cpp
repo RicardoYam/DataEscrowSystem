@@ -119,9 +119,6 @@ int handle_communication_until_done(
     int bytes_read = 0;
 
 waiting_for_connection_request:
-
-    // reset ssl_session and client_socket_fd to prepare for the new TLS
-    // connection
     close(client_socket_fd);
     SSL_free(ssl_session);
     printf(TLS_SERVER " waiting for client connection\n");

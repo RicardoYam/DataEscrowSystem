@@ -4,6 +4,7 @@
 #include "crow.h"
 #include "crow/middlewares/cors.h"
 #include <unistd.h>
+#include <time.h>
 
 static char *publicHex = NULL;
 
@@ -68,6 +69,9 @@ int main(int argc, const char *argv[])
     size_t sealed_size = 0;
     char uuid_str[37];
 
+    clock_t start, end;
+    double time_used;
+
     /* Check argument count */
     if (argc == 3)
     {
@@ -102,13 +106,20 @@ read_port:
 
     // while (1) {
     //     generate_keypair(enclave, &sealed_blob, &sealed_size);
-    //     unseal_data(enclave, sealed_blob, sealed_size); 
+    //     unseal_data(enclave, sealed_blob, sealed_size);
     //     sleep(1);
     // }
-    
+
     printf("Host: set TLS preperation\n");
     ret = set_up_tls_server(enclave, &ret, server_port, uuid_str);
     printf("\noutside_uuid_sgx_ecdsa: %s\n", uuid_str);
+
+    start = clock(); 
+    ret = handle_communication_until_done(enclave, &ret, false, NULL);
+    end = clock();  
+    
+    time_used = ((double) (end - start)) / CLOCKS_PER_SEC * 1000;
+    printf("Time taken: %f ms\n", time_used);
 
     // Receive request
     crow::App<crow::CORSHandler> app;
