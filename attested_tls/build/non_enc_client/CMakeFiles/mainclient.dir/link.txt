@@ -1,1 +1,0 @@
-/usr/bin/clang++-11     CMakeFiles/mainclient.dir/mainclient.cpp.o  -o mainclient  /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

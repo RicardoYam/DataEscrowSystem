@@ -1,1 +1,0 @@
-/usr/bin/clang++-11     CMakeFiles/tls_client_host.dir/host.cpp.o CMakeFiles/tls_client_host.dir/tls_client_u.c.o  -o tls_client_host  /opt/openenclave/lib/openenclave/host/liboehost.a /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/lib/x86_64-linux-gnu/libdl.so -lpthread -Wl,-z,noexecstack 
