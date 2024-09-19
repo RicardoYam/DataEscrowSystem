@@ -1,4 +1,4 @@
-# Data Escrow with Intel SGX and blockchain
+# Data Escrow with Intel SGX and Blockchain
 
 We present an enhanced secure data escrow solution that integrates hardware and blockchain technologies to address the vulnerabilities of traditional escrow systems, such as system compromises and bankruptcy. Our innovative approach protects private data within an Intel Software Guard Extensions (SGX) enclave and employs Shamir's Secret Sharing to divide and securely store the private key. This dual method significantly enhances the security of sensitive data. Additionally, we utilize smart contracts executed on the Ethereum blockchain to maintain the integrity and authenticity of access logs. All data exchanges from within the enclave occur over a trusted Transport Layer Security (TLS) connection, further securing data in transit. This paper outlines the system's architecture, delves into implementation challenges, and discusses potential areas for future enhancements, aiming to strengthen the robustness and reliability of data escrow systems.
 
