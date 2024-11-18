@@ -204,15 +204,3 @@ To simulate the interaction between the user, authority, and the blockchain:
 ```
 ./main
 ```
-
-## Screenshots
-
-![blockchain](./doc/blockchain.png)
-
-![request](./doc/request.png)
-
-![encryption](./doc/encryption.png)
-
-![access data](./doc/access.png)
-
-![recover](./doc/recover.png)
